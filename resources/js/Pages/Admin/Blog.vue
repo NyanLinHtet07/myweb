@@ -32,9 +32,10 @@
                         <th>Delete</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white">
+                <tbody class="bg-white"> 
                     <tr v-for="p in blogs" :key="p.id">
                         <td class=" py-2">{{p.id}}</td>
+                        <td class="py-2">{{p.title}}</td>
                         <td class=" py-2"> <img :src='"/upload/blog/"+p.image' alt=""></td>
                         <td class="py-2">{{p.text}}</td>
                         <td class=" bg-green-500 hover:bg-green-800 text-gray-200 font-bold text-sm py-2 px-2 rounded"> Edit </td>

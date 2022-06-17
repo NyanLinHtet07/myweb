@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Project;
+use App\Models\Tag;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -16,7 +17,12 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Project');
+        $tags = Tag::all();
+        $projects = Project::all(); 
+        return Inertia::render('Admin/Project', [
+            'tags' => $tags,
+            'projects' => $projects,
+        ]);
     }
 
     /**
@@ -54,6 +60,10 @@ class ProjectController extends Controller
                 $data[] = $name;
                 $result = json_encode($data);
             }
+        }
+
+        else{
+            $result = null;
         }
 
         $project = Project::create([
