@@ -8,7 +8,7 @@
                 <input type="text" v-model="form.title" class=" w-3/4 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200">
                 <input type="text" v-model="form.url" class=" w-3/4 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200">
                 <textarea name="" id="" cols="30" rows="10" v-model="form.description"></textarea>
-                <input type="file" @input="form.image = $event.target.files[0]" />
+                <input type="file" @input="form.image = $event.target.files" multiple />
                 <select name="" id="" v-model="form.tag_id">
                     <option v-for="tag in tags" :key="tag.id" :value="tag.id"> {{tag.name}}</option>
                 </select>
@@ -33,7 +33,7 @@
                     <tr v-for="p in projects" :key="p.id">
                         <td class=" py-2">{{p.id}}</td>
                         <td class="py-2">{{p.title}}</td>
-                        <td class=" py-2"> <img :src='"/upload/blog/"+p.image' alt=""></td>
+                        <td class=" py-2"> <img :src='"/upload/project/"+j' alt="" v-for="(j,index) in p.image" :key="index" class=" w-16"></td>
                         <td class="py-2"> {{p.url}}</td>
                         <td class="py-2">{{p.description}}</td>
                         <td class=" bg-green-500 hover:bg-green-800 text-gray-200 font-bold text-sm py-2 px-2 rounded"> Edit </td>

@@ -19,6 +19,10 @@ class ProjectController extends Controller
     {
         $tags = Tag::all();
         $projects = Project::all(); 
+
+        foreach( $projects as $project){
+            $project -> image = json_decode($project -> image);
+        }
         return Inertia::render('Admin/Project', [
             'tags' => $tags,
             'projects' => $projects,

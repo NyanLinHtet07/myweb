@@ -1,5 +1,5 @@
 <template>
-   <BreezeAuthenticatedLayout>
+   <BreezeAuthenticatedLayout pageTitle="Tag">
             <div class=" flex justify-end">
                 <button class=" m-3 px-3 py-2 rounded bg-gray-500/60" @click="openForm()" v-if="! visible"> Open Form </button>
                 <button class=" m-3 px-3 py-2 rounded bg-red-800/60" @click="closeForm()" v-if="visible"> Close Form </button>

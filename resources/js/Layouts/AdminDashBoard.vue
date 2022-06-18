@@ -13,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 <template>
          <div>
         <div class="h-screen flex">
-            <div class=" bg-slate-100 w-1/5 border-r">
+            <div class=" bg-slate-100 w-1/5 border-r transition delay-300" v-if="visible">
                 <h3 class=" p-2 mt-3 text-center font-bold text-gray-800"> My Wall </h3>
 
                 <div class=" mt-3 px-2 mx-2 bg-white rounded">
@@ -48,6 +48,17 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <div class=" flex-1 w-4/5 bg-white border-gray-200">
+                    <div class=" bg-slate-200 w-full flex justify-between px-2 py-3">
+                        <div>
+                             <button class=" py-3 px-2 rounded" @click="close()"  v-if=" visible"> Close</button>
+                             <button class=" py-3 px-2 rounded" @click="open()" v-if="! visible">Open</button>
+                        </div>
+                        <div>
+                             {{pageTitle}}
+                        </div>
+                       
+                       
+                    </div>
                      <main>
                         <slot />
                     </main>
@@ -56,6 +67,30 @@ const showingNavigationDropdown = ref(false);
         </div>
     </div>
 </template>
+
+<script>
+
+//import closeIcon from 'vue-material-design-icons/Close.vue'
+export default {
+    props:["pageTitle"],
+
+    data() {
+        return {
+            visible: true,
+        }
+    },
+
+    methods: {
+        close(){
+            this.visible = false;
+        },
+
+        open(){
+            this.visible = true;
+        }
+    },
+}
+</script>
 
 <style>
     
