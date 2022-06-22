@@ -4,7 +4,7 @@ import BreezeAuthenticatedLayout from '@/Layouts/AdminDashBoard.vue';
 </script>
 
 <template>
-    <BreezeAuthenticatedLayout>
+    <BreezeAuthenticatedLayout pageTitle="DashBoard">
       
 
         <div class="py-12">

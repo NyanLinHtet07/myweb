@@ -1,8 +1,8 @@
 <template>
-   <BreezeAuthenticatedLayout>
+   <BreezeAuthenticatedLayout pageTitle="Project Page">
         
     <div class="px-3 py-2 min-w-full min-h-screen">
-            <h3 class=" text-center"> Blog</h3>
+          
              <form @submit.prevent="submit">
             <!-- <form @submit.prevent="submit"> -->
                 <input type="text" v-model="form.title" class=" w-3/4 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200">

@@ -54,7 +54,7 @@ const showingNavigationDropdown = ref(false);
                              <button class=" py-3 px-2 rounded" @click="open()" v-if="! visible">Open</button>
                         </div>
                         <div>
-                             {{pageTitle}}
+                            <h2 class=" text-gray-700 font-bold mt-3 mr-3 text-xl"> {{pageTitle}} </h2>
                         </div>
                        
                        
