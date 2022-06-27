@@ -1,8 +1,8 @@
 <template>
    <BreezeAuthenticatedLayout pageTitle="Tag Page">
             <div class=" flex justify-end">
-                <button class=" m-3 px-3 py-2 rounded bg-gray-500/60" @click="openForm()" v-if="! visible"> Open Form </button>
-                <button class=" m-3 px-3 py-2 rounded bg-sky-800/60" @click="closeForm()" v-if="visible"> Close Form </button>
+                <button class=" m-3 px-3 py-2 rounded-lg bg-gray-500/60 shadow-md drop-shadow-lg hover:shadow-none hover:drop-shadow-md" @click="openForm()" v-if="! visible"> Open </button>
+                <button class=" m-3 px-3 py-2 rounded-lg bg-sky-800/60 shadow-md drop-shadow-lg hover:shadow-none hover:drop-shadow-md" @click="closeForm()" v-if="visible"> Close </button>
             </div>
             <div class=" px-3 py-2 min-w-full mt-3" v-if="visible">
                 <form @submit.prevent="submit" class=" bg-gray-200 p-2 rounded">
@@ -22,7 +22,7 @@
                 </form>
             </div>
 
-            <div class=" mt-5 py-3 px-4 bg-slate-200 rounded-md" v-if=" ! visible">
+            <div class=" mt-5 mx-2  rounded-md" v-if=" ! visible">
                   <table class="table-auto text-center w-full "> 
             <thead class=" bg-gray-700/50 text-gray-100">
                 <tr class="p-3 text-base">
@@ -43,8 +43,8 @@
                  
                    <td class="py-2"> {{ t.name}}</td>
    
-                   <td class="py-2"> <button @click="editMenu(t)" class=" bg-green-500 hover:bg-green-800 text-gray-200 font-bold text-sm py-2 px-2 rounded" >
-                    <!-- <i class="far fa-edit"></i> --> Edit
+                   <td class="py-2"> <button @click="editMenu(t)" class=" text-sky-700 hover:text-sky-500 transition-colors delay-300 font-bold text-sm" >
+                    <!-- <i class="far fa-edit"></i> --> <edit-icon></edit-icon>
                      </button></td>
 
                    <td class="py-2"> <button @click="deleteTag(t.id)" class="text-red-700 hover:text-red-500 transition-colors delay-300 font-bold text-sm">
@@ -57,6 +57,48 @@
                
             </tbody>
             </table>
+            
+
+            
+             <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400" v-if="isOpen">
+                      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        
+                        <div class="fixed inset-0 transition-opacity">
+                          <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                        </div>
+                      
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
+                        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                          <form  @submit.prevent='updateMenu(form)'>
+                          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="">
+                                  <div class="mb-4">
+                                      <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+                                      <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Enter Title" v-model="form.name">
+                                   
+                                  </div>
+                            </div>
+                          </div>
+                          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                           
+                            <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                              <button  type="submit" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5" >
+                                Update
+                              </button>
+                            </span>
+                            <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                              
+                              <button @click="closeModal()" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                Cancel
+                              </button>
+                            </span>
+                          </div>
+                          </form>
+                          
+                        </div>
+                      </div>
+                    </div>
+
             </div>
 
    </BreezeAuthenticatedLayout>
@@ -67,6 +109,7 @@ import BreezeAuthenticatedLayout from '@/Layouts/AdminDashBoard.vue';
 //import {Inertia} from '@inertiajs/inertia'
 import {useForm} from '@inertiajs/inertia-vue3'
 import DeleteIcon from 'vue-material-design-icons/DeleteOutline.vue'
+import EditIcon from 'vue-material-design-icons/BookEditOutline.vue'
 export default {
 
     props:{
@@ -76,6 +119,8 @@ export default {
    data() {
        return {
          visible: false,
+         editMode:false,
+         isOpen : false,
 
          form : useForm ({
             name : null,
@@ -98,10 +143,21 @@ export default {
 
    components:{
        BreezeAuthenticatedLayout,
-       DeleteIcon
+       DeleteIcon, EditIcon
    },
 
    methods: {
+
+     OpenModal(){
+            this.isOpen = true;
+        },
+
+        closeModal(){
+            this.isOpen = false;
+            this.reset()
+            this.editMode = false;
+
+        },
 
         submit() {
             this.form.post('/admin/tag')
@@ -122,6 +178,21 @@ export default {
 
       closeForm(){
         this.visible = false
+      },
+
+      editMenu(t){
+        this.form = Object.assign({}, t);
+        this.editMode = true;
+        this.OpenModal();
+
+      },
+
+      updateMenu(menu){
+        menu._method = 'PUT';
+
+        this.$inertia.put(`/admin/tag/`+menu.id , menu);
+        this.reset();
+        this.closeModal();
       },
      
       deleteTag(id){

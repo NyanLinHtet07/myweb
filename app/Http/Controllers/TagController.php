@@ -101,7 +101,7 @@ class TagController extends Controller
         $tag = Tag::find($id);
         $tag-> update( $request -> only('name'));
 
-        return $tag;
+        return redirect() -> back();
     }
 
     /**
