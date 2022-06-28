@@ -11,9 +11,9 @@
              <form @submit.prevent="submit">
             <!-- <form @submit.prevent="submit"> -->
                 <input type="text" v-model="form.title" class=" w-3/4 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200">
-                <textarea name="" id="" cols="30" rows="10" v-model="form.text"></textarea>
+                <textarea name="" id="" cols="30" rows="10" v-model="form.text" class=" w-3/4 h-24 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200" ></textarea>
                 <input type="file" @input="form.image = $event.target.files[0]" />
-                <select name="" id="" v-model="form.tag_id">
+                <select name="" id="" v-model="form.tag_id" class=" px-3 py-2 rounded">
                     <option v-for="tag in tags" :key="tag.id" :value="tag.id"> {{tag.name}}</option>
                 </select>
                 <button class="px-3 oy-2 rounded bg-lime-800" type="submit"> Submit</button>

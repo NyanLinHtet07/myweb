@@ -23518,7 +23518,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         rows: "10",
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
           return $setup.form.text = $event;
-        })
+        }),
+        "class": "w-3/4 h-24 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200"
       }, null, 512
       /* NEED_PATCH */
       ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.text]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -23533,7 +23534,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         id: "",
         "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
           return $setup.form.tag_id = $event;
-        })
+        }),
+        "class": "px-3 py-2 rounded"
       }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.tags, function (tag) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
           key: tag.id,
