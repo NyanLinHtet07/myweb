@@ -10,12 +10,33 @@
             
              <form @submit.prevent="submit">
             <!-- <form @submit.prevent="submit"> -->
-                <input type="text" v-model="form.title" class=" w-3/4 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200">
-                <textarea name="" id="" cols="30" rows="10" v-model="form.text" class=" w-3/4 h-24 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200" ></textarea>
-                <input type="file" @input="form.image = $event.target.files[0]" />
-                <select name="" id="" v-model="form.tag_id" class=" px-3 py-2 rounded">
-                    <option v-for="tag in tags" :key="tag.id" :value="tag.id"> {{tag.name}}</option>
-                </select>
+                <div>
+                     <input type="text" v-model="form.title" class=" w-3/4 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200" placeholder="Title"/>
+                      <div v-if="form.errors.title">{{ form.errors.title }}</div>
+                </div>
+
+                <div>
+                      <textarea name="" id="" cols="30" rows="10" v-model="form.text" placeholder="text" class=" w-3/4 h-24 p-3 m-2 rounded border-2 border-gray-500 ring-2 ring-slate-200" ></textarea>
+                      <div v-if="form.errors.text">{{ form.errors.text }}</div>
+                </div>
+                <div>
+                     <select name="" id="" v-model="multiTag" class=" px-3 py-2 rounded" multiple>
+                         <option selected> Select Tag </option>
+                        <option v-for="tag in tags" :key="tag.id" :value="tag.id"> {{tag.name}}</option>
+                    </select>
+                    
+                </div>
+                <div> 
+                     <input type="file" @input="form.image = $event.target.files[0]" />
+                      <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                        {{ form.progress.percentage }}%
+                     </progress>
+                </div>
+                <div>{{multiTag}}</div>
+               
+              
+               
+               
                 <button class="px-3 oy-2 rounded bg-lime-800" type="submit"> Submit</button>
             </form>
     </div>
@@ -53,6 +74,7 @@
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/AdminDashBoard.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
+
 export default {
 
     props:{
@@ -63,6 +85,15 @@ export default {
     data(){
         return{
             visible: false,
+            show: false,
+            multiTag:[],
+
+               form : useForm ({
+                    title : null,
+                    image: null,
+                    text: null,
+                    tag_id: [],
+                }) 
         }
     },
 
@@ -79,29 +110,49 @@ export default {
     //         return {form, submit}
         
     // },
-    setup() {
-        const form = useForm ({
-            title : null,
-            image: null,
-            text: null,
-            tag_id: null,
-        }) 
+    // setup() {
+      
 
-        function submit() {
-            form.post('/admin/blog')
-        }
-        return {form , submit}
-    },
+    //     function submit() {
+    //         form.post('/admin/blog')
+    //     }
+    //     return {form , submit}
+    // },
    
    components:{
        BreezeAuthenticatedLayout,
      
    },
    methods:{
+
+        getTag(){
+            this.form.tag_id = this.multiTag;
+        },
+
+       submit() {
+            this.form.post('/admin/blog')
+            this.reset();
+            window.alert('Successfully Uploaded')
+            //this.closeForm()
+        },
+    
+    checkShow(){
+        this.show = true
+    },
+
+    checkClose(){
+        this.show = false
+    },
     deleteBlog(id){
         if(! confirm('Are You Sure To Delete'));
         this.$inertia.delete(`/admin/blog/${id}`)
     }
-   }
+   },
+
+   mounted() {
+    this.getTag();
+   },
+
+
 }
 </script>

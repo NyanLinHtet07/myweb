@@ -19,6 +19,10 @@ class BlogController extends Controller
         $blogs = Blog::all();
         $tags = Tag::all();
 
+        foreach ( $blogs as $blog){
+            $blog -> tag_id = json_decode($blog -> tag_id);
+        }
+
         return Inertia::render('Admin/Blog', [
             'blogs' => $blogs,
             'tags' => $tags,
@@ -57,7 +61,9 @@ class BlogController extends Controller
         }
         else{
             $filename = null;
-        }
+        } 
+
+        //foreach(json_decode($request -> tag_id , true) as $tag)
 
         $blog = Blog::create([
             'title' => $request -> title,

@@ -935,9 +935,6 @@ select {
 .border-2 {
   border-width: 2px;
 }
-.border-0 {
-  border-width: 0px;
-}
 .border-t {
   border-top-width: 1px;
 }
