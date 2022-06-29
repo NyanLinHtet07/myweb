@@ -107,6 +107,7 @@
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/AdminDashBoard.vue';
 //import {Inertia} from '@inertiajs/inertia'
+import axios from 'axios'
 import {useForm} from '@inertiajs/inertia-vue3'
 import DeleteIcon from 'vue-material-design-icons/DeleteOutline.vue'
 import EditIcon from 'vue-material-design-icons/BookEditOutline.vue'
@@ -197,7 +198,7 @@ export default {
      
       deleteTag(id){
         if(! confirm("Are You Sure To Delete")) return;
-        this.$inertia.delete(`/admin/tag/${id}`);
+         axios.delete(`/api/tag/${id}`);
       }
    },
    

@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration
             $table->string('image') -> nullable();
             $table->string('url') -> nullable();
             $table->text('description') -> nullable();
-            $table -> unsignedBigInteger('tag_id');
+            $table -> string('tag_id');
             $table->timestamps();
         });
     }

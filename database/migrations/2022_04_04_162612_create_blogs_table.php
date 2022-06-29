@@ -18,7 +18,7 @@ class CreateBlogsTable extends Migration
             $table->string('title');
             $table->string('image') -> nullable();
             $table->longText('text') -> nullable();
-            $table->unsignedBigInteger('tag_id');
+            $table->string('tag_id');
             $table->timestamps();
         });
     }
